@@ -9,12 +9,14 @@ function show() {
       const id = "td" + x + "" + y;
       const td = document.getElementById(id);
       td.innerText = "";
+      td.classList = [];
     }
   }
   board.tiles.forEach(tile => {
     const id = "td" + tile.x + "" + tile.y;
     const td = document.getElementById(id);
     td.innerText = tile.n;
+    td.classList.add("tile" + tile.n);
   });
 }
 
