@@ -7,6 +7,12 @@ test('constructor', () => {
   expect(board.tiles.length).toBe(0);
 });
 
+test('initialize', () => {
+  const board = Board.initialize();
+
+  expect(board.tiles.length).toBe(2);
+});
+
 describe('#toMatrix', () => {
   test('emptty', () => {
     const board = new Board();

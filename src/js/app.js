@@ -1,9 +1,7 @@
 import Board from './modules/board';
 import Tile from './modules/tile';
 
-let board = new Board();
-
-board = board.appendRandomTile().appendRandomTile();
+let board = Board.initialize();
 
 function show() {
   for(let x = 0; x < 4; x++) {

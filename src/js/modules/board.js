@@ -5,6 +5,10 @@ class Board {
     this.tiles = [];
   }
 
+  static initialize() {
+    return new Board().appendRandomTile().appendRandomTile();
+  }
+
   toMatrix() {
     let matrix = [
       [null, null, null, null],
