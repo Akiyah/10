@@ -10,9 +10,9 @@ class Tile {
   }
 
   rotate() {
-    let x = this.y;
-    let y = 3 - this.x;
-    let n = this.n;
+    const x = this.y;
+    const y = 3 - this.x;
+    const n = this.n;
     return new Tile(x, y, n);
   }
 }
