@@ -61,19 +61,33 @@ describe('#toMatrix', () => {
   });
 });
 
+test('#random', () => {
+  const board = new Board();
+  let ns = [];
+
+  for (let i = 0; i < 1000; i++) {
+    ns.push(board.random());
+  } 
+
+  expect(ns.every(n => n == 0 || n == 1)).toBeTruthy();
+  expect(ns.filter(n => n == 0).length > 890).toBeTruthy();
+  expect(ns.filter(n => n == 1).length < 110).toBeTruthy();
+});
+
+
 describe('#appendRandomTile', () => {
   test('empty', () => {
-    const board = new Board();
-    board.appendRandomTile();
+    const lastBoard = new Board();
+    const board = lastBoard.appendRandomTile();
 
     expect(board.tiles.length).toBe(1);
     expect(board.tiles[0].n == 0 || board.tiles[0].n == 1).toBeTruthy();
   });
 
   test('exists 1 tile', () => {
-    const board = new Board();
-    board.tiles.push(new Tile(1, 2, 5));
-    board.appendRandomTile();
+    const lastBoard = new Board();
+    lastBoard.tiles.push(new Tile(1, 2, 5));
+    const board = lastBoard.appendRandomTile();
 
     expect(board.tiles.length).toBe(2);
     expect(board.tiles[1].n == 0 || board.tiles[1].n == 1).toBeTruthy();
@@ -81,8 +95,8 @@ describe('#appendRandomTile', () => {
   });
 
   test('exist 15 tiles', () => {
-    const board = new Board();
-    board.tiles = [
+    const lastBoard = new Board();
+    lastBoard.tiles = [
       new Tile(0, 0, 0),
       new Tile(1, 0, 1),
       new Tile(2, 0, 2),
@@ -99,7 +113,7 @@ describe('#appendRandomTile', () => {
       new Tile(1, 3, 13),
       new Tile(2, 3, 14)
     ];
-    board.appendRandomTile();
+    const board = lastBoard.appendRandomTile();
 
     expect(board.tiles.length).toBe(16);
     expect(board.tiles[15].n == 0 || board.tiles[15].n == 1).toBeTruthy();
@@ -179,6 +193,96 @@ describe('#rorate', () => {
       [null,    5, null, null],
       [null, null, null, null],
       [null, null, null, null]
+    ]);
+  });
+});
+
+describe('#moveRowLeft', () => {
+  test('1 tile', () => {
+    const board = new Board();
+
+    expect(board.moveRowLeft([null,    5, null, null])).toEqual([5]);
+    expect(board.moveRowLeft([null, null, null,    0])).toEqual([0]);
+    expect(board.moveRowLeft([   1, null,    1, null])).toEqual([1, 1]);
+    expect(board.moveRowLeft([null,    2,    2,    2])).toEqual([2, 2, 2]);
+    expect(board.moveRowLeft([   3,    3,    3,    3])).toEqual([3, 3, 3, 3]);
+  });
+
+  test('more tiles', () => {
+    const board = new Board();
+
+    board.tiles.push(new Tile(3, 0, 0));
+
+    board.tiles.push(new Tile(0, 1, 1));
+    board.tiles.push(new Tile(2, 1, 1));
+
+    board.tiles.push(new Tile(1, 2, 2));
+    board.tiles.push(new Tile(2, 2, 2));
+    board.tiles.push(new Tile(3, 2, 2));
+
+    board.tiles.push(new Tile(0, 3, 3));
+    board.tiles.push(new Tile(1, 3, 3));
+    board.tiles.push(new Tile(2, 3, 3));
+    board.tiles.push(new Tile(3, 3, 3));
+
+    expect(board.toMatrix()).toEqual([ // before
+      [null, null, null,    0],
+      [   1, null,    1, null],
+      [null,    2,    2,    2],
+      [   3,    3,    3,    3]
+    ]);
+
+    expect(board.moveLeft().toMatrix()).toEqual([
+      [   0, null, null, null],
+      [   1,    1, null, null],
+      [   2,    2,    2, null],
+      [   3,    3,    3,    3]
+    ]);
+  });
+});
+
+describe('#moveLeft', () => {
+  test('1 tile', () => {
+    const board = new Board();
+    board.tiles.push(new Tile(1, 2, 5));
+
+    expect(board.moveLeft().toMatrix()).toEqual([
+      [null, null, null, null],
+      [null, null, null, null],
+      [   5, null, null, null],
+      [null, null, null, null]
+    ]);
+  });
+
+  test('more tiles', () => {
+    const board = new Board();
+
+    board.tiles.push(new Tile(3, 0, 0));
+
+    board.tiles.push(new Tile(0, 1, 1));
+    board.tiles.push(new Tile(2, 1, 1));
+
+    board.tiles.push(new Tile(1, 2, 2));
+    board.tiles.push(new Tile(2, 2, 2));
+    board.tiles.push(new Tile(3, 2, 2));
+
+    board.tiles.push(new Tile(0, 3, 3));
+    board.tiles.push(new Tile(1, 3, 3));
+    board.tiles.push(new Tile(2, 3, 3));
+    board.tiles.push(new Tile(3, 3, 3));
+
+    expect(board.toMatrix()).toEqual([ // before
+      [null, null, null,    0],
+      [   1, null,    1, null],
+      [null,    2,    2,    2],
+      [   3,    3,    3,    3]
+    ]);
+
+    expect(board.moveLeft().toMatrix()).toEqual([
+      [   0, null, null, null],
+      [   1,    1, null, null],
+      [   2,    2,    2, null],
+      [   3,    3,    3,    3]
     ]);
   });
 });

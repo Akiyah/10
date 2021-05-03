@@ -18,7 +18,13 @@ class Board {
     return matrix;
   }
 
+  random() {
+    return Math.floor(Math.random() * 10 / 9);
+  }
+
   appendRandomTile() {
+    const board = new Board();
+
     let emptyPoints = [];
     for (let x = 0; x < 4; x++) {
       for (let y = 0; y < 4; y++) {
@@ -29,10 +35,11 @@ class Board {
     }
 
     const point = emptyPoints[Math.floor(Math.random() * emptyPoints.length)];
-    const n = Math.floor(Math.random() * 2);
-    const tile = new Tile(point[0], point[1], n);
+    const tile = new Tile(point[0], point[1], this.random());
 
-    this.tiles.push(tile);
+    board.tiles = this.tiles.concat(tile);
+
+    return board;
   }
 
   rotate(m = 1) {
@@ -41,12 +48,16 @@ class Board {
     return board;
   }
 
+  moveRowLeft(row) {
+    return row.filter(n => n != null);
+  }
+
   moveLeft() {
     const board = new Board();
     let y = 0;
     this.toMatrix().forEach(row => {
       let x = 0;
-      row.filter(n => n != null).forEach(n => {
+      this.moveRowLeft(row).forEach(n => {
         board.tiles.push(new Tile(x, y, n));
         x++;
       });
@@ -60,9 +71,7 @@ class Board {
   }
 
   next(m) { // m = 0:left, 1:down, 2:right, 3:up
-    const board = this.move(m);
-    board.appendRandomTile();
-    return board;
+    return this.move(m).appendRandomTile();
   }
 }
  

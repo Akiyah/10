@@ -3,8 +3,7 @@ import Tile from './modules/tile';
 
 let board = new Board();
 
-board.appendRandomTile();
-board.appendRandomTile();
+board = board.appendRandomTile().appendRandomTile();
 
 function show() {
   for(let x = 0; x < 4; x++) {
