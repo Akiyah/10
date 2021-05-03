@@ -155,8 +155,33 @@ describe('#rorate', () => {
       [ 0,  4,  8, 12]
     ]);
   });
-});
 
+  test('with argument', () => {
+    const board = new Board();
+    board.tiles.push(new Tile(1, 2, 5));
+
+    expect(board.rotate(0).toMatrix()).toEqual([
+      [null, null, null, null],
+      [null, null, null, null],
+      [null,    5, null, null],
+      [null, null, null, null]
+    ]);
+
+    expect(board.rotate(2).toMatrix()).toEqual([
+      [null, null, null, null],
+      [null, null,    5, null],
+      [null, null, null, null],
+      [null, null, null, null]
+    ]);
+
+    expect(board.rotate(-1).toMatrix()).toEqual([
+      [null, null, null, null],
+      [null,    5, null, null],
+      [null, null, null, null],
+      [null, null, null, null]
+    ]);
+  });
+});
 
 test('#move', () => {
   const board = new Board();

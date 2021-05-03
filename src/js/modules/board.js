@@ -34,9 +34,9 @@ class Board {
     this.tiles.push(tile);
   }
 
-  rotate() {
+  rotate(m = 1) {
     const board = new Board();
-    board.tiles = this.tiles.map(tile => { return tile.rotate(); });
+    board.tiles = this.tiles.map(tile => { return tile.rotate(m); });
     return board;
   }
 
