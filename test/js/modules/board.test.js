@@ -209,9 +209,9 @@ describe('#moveRowLeft', () => {
 
     expect(board.moveRowLeft([null,    5, null, null])).toEqual([5]);
     expect(board.moveRowLeft([null, null, null,    0])).toEqual([0]);
-    expect(board.moveRowLeft([   1, null,    1, null])).toEqual([1, 1]);
-    expect(board.moveRowLeft([null,    2,    2,    2])).toEqual([2, 2, 2]);
-    expect(board.moveRowLeft([   3,    3,    3,    3])).toEqual([3, 3, 3, 3]);
+    expect(board.moveRowLeft([   1, null,    1, null])).toEqual([2]);
+    expect(board.moveRowLeft([null,    2,    2,    2])).toEqual([3, 2]);
+    expect(board.moveRowLeft([   3,    3,    3,    3])).toEqual([4, 4]);
   });
 
   test('more tiles', () => {
@@ -240,9 +240,9 @@ describe('#moveRowLeft', () => {
 
     expect(board.moveLeft().toMatrix()).toEqual([
       [   0, null, null, null],
-      [   1,    1, null, null],
-      [   2,    2,    2, null],
-      [   3,    3,    3,    3]
+      [   2, null, null, null],
+      [   3,    2, null, null],
+      [   4,    4, null, null]
     ]);
   });
 });
@@ -286,9 +286,9 @@ describe('#moveLeft', () => {
 
     expect(board.moveLeft().toMatrix()).toEqual([
       [   0, null, null, null],
-      [   1,    1, null, null],
-      [   2,    2,    2, null],
-      [   3,    3,    3,    3]
+      [   2, null, null, null],
+      [   3,    2, null, null],
+      [   4,    4, null, null]
     ]);
   });
 });
@@ -353,26 +353,58 @@ describe('#move', () => {
 
     expect(board.move(0).toMatrix()).toEqual([
       [   0, null, null, null],
-      [   1,    1, null, null],
-      [   2,    2,    2, null],
-      [   3,    3,    3,    3]
+      [   2, null, null, null],
+      [   3,    2, null, null],
+      [   4,    4, null, null]
     ]);
   });
 });
 
-test('#next', () => {
+test('#isMovable', () => {
+  const board = new Board();
+  board.tiles.push(new Tile(0, 0, 0));
+  board.tiles.push(new Tile(0, 1, 1));
+  board.tiles.push(new Tile(0, 2, 2));
+  board.tiles.push(new Tile(0, 3, 3));
+  board.tiles.push(new Tile(1, 3, 4));
+  board.tiles.push(new Tile(2, 3, 5));
+  board.tiles.push(new Tile(3, 3, 6));
+
+  expect(board.toMatrix()).toEqual([ // before
+    [   0, null, null, null],
+    [   1, null, null, null],
+    [   2, null, null, null],
+    [   3,    4,    5,    6]
+  ]);
+
+  expect(board.isMovable(0)).toBeFalsy();
+  expect(board.isMovable(1)).toBeFalsy();
+  expect(board.isMovable(2)).toBeTruthy();
+  expect(board.isMovable(3)).toBeTruthy();
+});
+
+describe('#next', () => {
   const lastBoard = new Board();
-  lastBoard.tiles.push(new Tile(1, 2, 5));
+  lastBoard.tiles.push(new Tile(1, 3, 5));
 
   expect(lastBoard.toMatrix()).toEqual([ // before
     [null, null, null, null],
     [null, null, null, null],
-    [null,    5, null, null],
-    [null, null, null, null]
+    [null, null, null, null],
+    [null,    5, null, null]
   ]);
 
-  const board = lastBoard.next(0);
+  test('movable', () => {
+    const board = lastBoard.next(0);
 
-  expect(board.tiles.length).toBe(2);
-  expect(board.tiles[0].toString()).toBe("0,2,5");
+    expect(board.tiles.length).toBe(2);
+    expect(board.tiles[0].toString()).toBe("0,3,5");
+  });
+
+  test('not movable', () => {
+    const board = lastBoard.next(1);
+
+    expect(board.tiles.length).toBe(1);
+    expect(board.tiles[0].toString()).toBe("1,3,5");
+  });
 });

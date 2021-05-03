@@ -53,7 +53,30 @@ class Board {
   }
 
   moveRowLeft(row) {
-    return row.filter(n => n != null);
+    let moved = [];
+
+    row = row.filter(n => n != null);
+
+    let last = null;
+    row.forEach(n => {
+      if (last == null) {
+        last = n;
+      } else {
+        if (n == last) {
+          moved.push(last + 1);
+          last = null;
+        } else {
+          moved.push(last);
+          last = n;
+        }
+      }
+    });
+
+    if (last != null) {
+      moved.push(last);
+    }
+
+    return moved;
   }
 
   moveLeft() {
@@ -74,8 +97,16 @@ class Board {
     return this.rotate(-m).moveLeft().rotate(m);
   }
 
-  next(m) { // m = 0:left, 1:down, 2:right, 3:up
-    return this.move(m).appendRandomTile();
+  isMovable(m) {
+    const moved = this.move(m);
+    return moved.toMatrix().toString() != this.toMatrix().toString();
+  }
+
+  next(m) {
+    if (this.isMovable(m)) {
+      return this.move(m).appendRandomTile();
+    }
+    return this;
   }
 }
  
