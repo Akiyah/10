@@ -141,7 +141,7 @@ describe('#rorate', () => {
       new Tile(3, 3, 15)
     ];
 
-    expect(board.toMatrix()).toEqual([
+    expect(board.toMatrix()).toEqual([ // before
       [ 0,  1,  2,  3],
       [ 4,  5,  6,  7],
       [ 8,  9, 10, 11],
@@ -183,8 +183,69 @@ describe('#rorate', () => {
   });
 });
 
-test('#move', () => {
-  const board = new Board();
+describe('#move', () => {
+  test('1 tile', () => {
+    const board = new Board();
+    board.tiles.push(new Tile(1, 2, 5));
 
-  expect(board.move("left")).toBe("move:left");
+    expect(board.move(0).toMatrix()).toEqual([
+      [null, null, null, null],
+      [null, null, null, null],
+      [   5, null, null, null],
+      [null, null, null, null]
+    ]);
+
+    expect(board.move(1).toMatrix()).toEqual([
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null,    5, null, null]
+    ]);
+
+    expect(board.move(2).toMatrix()).toEqual([
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null,    5],
+      [null, null, null, null]
+    ]);
+
+    expect(board.move(3).toMatrix()).toEqual([
+      [null,    5, null, null],
+      [null, null, null, null],
+      [null, null, null, null],
+      [null, null, null, null]
+    ]);
+  });
+
+  test('more tiles', () => {
+    const board = new Board();
+
+    board.tiles.push(new Tile(3, 0, 0));
+
+    board.tiles.push(new Tile(0, 1, 1));
+    board.tiles.push(new Tile(2, 1, 1));
+
+    board.tiles.push(new Tile(1, 2, 2));
+    board.tiles.push(new Tile(2, 2, 2));
+    board.tiles.push(new Tile(3, 2, 2));
+
+    board.tiles.push(new Tile(0, 3, 3));
+    board.tiles.push(new Tile(1, 3, 3));
+    board.tiles.push(new Tile(2, 3, 3));
+    board.tiles.push(new Tile(3, 3, 3));
+
+    expect(board.toMatrix()).toEqual([ // before
+      [null, null, null,    0],
+      [   1, null,    1, null],
+      [null,    2,    2,    2],
+      [   3,    3,    3,    3]
+    ]);
+
+    expect(board.move(0).toMatrix()).toEqual([
+      [   0, null, null, null],
+      [   1,    1, null, null],
+      [   2,    2,    2, null],
+      [   3,    3,    3,    3]
+    ]);
+  });
 });

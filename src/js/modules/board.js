@@ -40,8 +40,22 @@ class Board {
     return board;
   }
 
-  move(direction) {
-    return "move:" + direction;
+  move(m) { // m = 0:left, 1:down, 2:right, 3:up
+    return this.rotate(-m).moveLeft().rotate(m);
+  }
+
+  moveLeft() {
+    const board = new Board();
+    let y = 0;
+    this.toMatrix().forEach(row => {
+      let x = 0;
+      row.filter(n => n != null).forEach(n => {
+        board.tiles.push(new Tile(x, y, n));
+        x++;
+      });
+      y++;
+    });
+    return board;
   }
 }
  
