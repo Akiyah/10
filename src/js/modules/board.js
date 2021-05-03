@@ -19,24 +19,25 @@ class Board {
   }
 
   appendRandomTile() {
-    let emptyCells = [];
+    let emptyPoints = [];
     for (let x = 0; x < 4; x++) {
       for (let y = 0; y < 4; y++) {
-        if (!this.tiles.some(tile => { return tile.x == x && tile.y == y; })) {
-          emptyCells.push([x, y]);
+        if (!this.tiles.some(tile => tile.x == x && tile.y == y)) {
+          emptyPoints.push([x, y]);
         }
       }
     }
 
-    const cell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-    const tile = new Tile(cell[0], cell[1], Math.floor(Math.random() * 2));
+    const point = emptyPoints[Math.floor(Math.random() * emptyPoints.length)];
+    const n = Math.floor(Math.random() * 2);
+    const tile = new Tile(point[0], point[1], n);
 
     this.tiles.push(tile);
   }
 
   rotate(m = 1) {
     const board = new Board();
-    board.tiles = this.tiles.map(tile => { return tile.rotate(m); });
+    board.tiles = this.tiles.map(tile => tile.rotate(m));
     return board;
   }
 
