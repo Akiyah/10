@@ -249,3 +249,20 @@ describe('#move', () => {
     ]);
   });
 });
+
+test('#next', () => {
+  const lastBoard = new Board();
+  lastBoard.tiles.push(new Tile(1, 2, 5));
+
+  expect(lastBoard.toMatrix()).toEqual([ // before
+    [null, null, null, null],
+    [null, null, null, null],
+    [null,    5, null, null],
+    [null, null, null, null]
+  ]);
+
+  const board = lastBoard.next(0);
+
+  expect(board.tiles.length).toBe(2);
+  expect(board.tiles[0].toString()).toBe("0,2,5");
+});

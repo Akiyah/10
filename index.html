@@ -4,7 +4,44 @@
   <meta charset="utf-8">
   <title>10</title>
   <script src="public/js/bundle.js"></script>
+  <style>
+    table, tr, td {
+      border : solid thin gray;
+    }
+    .board td {
+      width : 180px;
+      height : 180px;
+      text-align : center;
+    }
+    .board {
+      font-size: 100px;
+    }
+    .controller td {
+      width : 200px;
+      height : 150px;
+      text-align : center;
+    }
+    .controller button {
+      width : 200px;
+      height : 150px;
+      font-size: 100px;
+    }
+  </style>
 </head>
 <body>
+  <table class="board">
+    <tr><td id="td00"></td><td id="td10"></td><td id="td20"></td><td id="td30"></td></tr>
+    <tr><td id="td01"></td><td id="td11"></td><td id="td21"></td><td id="td31"></td></tr>
+    <tr><td id="td02"></td><td id="td12"></td><td id="td22"></td><td id="td32"></td></tr>
+    <tr><td id="td03"></td><td id="td13"></td><td id="td23"></td><td id="td33"></td></tr>
+  </table>
+
+  <table class="controller">
+    <tr><td></td><td><button id="button3">上</button></td><td></td></tr>
+    <tr><td><button id="button0">左</button></td><td></td><td><button id="button2">右</button></td></tr>
+    <tr><td></td><td><button id="button1">下</button></td><td></td></tr>
+  </table>
+
+
 </body>
 </html>

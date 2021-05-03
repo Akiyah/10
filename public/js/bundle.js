@@ -16,7 +16,7 @@
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_sum__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/sum */ \"./src/js/modules/sum.js\");\n/* harmony import */ var _modules_sum__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_modules_sum__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _modules_board__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/board */ \"./src/js/modules/board.js\");\n/* harmony import */ var _modules_board__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_modules_board__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\nconsole.log(_modules_sum__WEBPACK_IMPORTED_MODULE_0___default()(1, 2));\n\nconst board = new (_modules_board__WEBPACK_IMPORTED_MODULE_1___default())();\nconsole.log(board.move(\"left\"));\n\n\n//# sourceURL=webpack://10/./src/js/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _modules_board__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/board */ \"./src/js/modules/board.js\");\n/* harmony import */ var _modules_board__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_modules_board__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _modules_tile__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/tile */ \"./src/js/modules/tile.js\");\n/* harmony import */ var _modules_tile__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_modules_tile__WEBPACK_IMPORTED_MODULE_1__);\n\n\n\nlet board = new (_modules_board__WEBPACK_IMPORTED_MODULE_0___default())();\n\nboard.appendRandomTile();\nboard.appendRandomTile();\n\nfunction show() {\n  for(let x = 0; x < 4; x++) {\n    for(let y = 0; y < 4; y++) {\n      const id = \"td\" + x + \"\" + y;\n      const td = document.getElementById(id);\n      td.innerText = \"\";\n    }\n  }\n  board.tiles.forEach(tile => {\n    const id = \"td\" + tile.x + \"\" + tile.y;\n    const td = document.getElementById(id);\n    td.innerText = tile.n;\n  });\n}\n\nfunction next(m) {\n  board = board.next(m);\n  show();\n}\n\nwindow.onload = function() {\n  document.getElementById(\"button0\").onclick = function() { next(0); };\n  document.getElementById(\"button1\").onclick = function() { next(1); };\n  document.getElementById(\"button2\").onclick = function() { next(2); };\n  document.getElementById(\"button3\").onclick = function() { next(3); };\n\n  show();\n}\n\n\n//# sourceURL=webpack://10/./src/js/app.js?");
 
 /***/ }),
 
@@ -24,19 +24,19 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mod
 /*!*********************************!*\
   !*** ./src/js/modules/board.js ***!
   \*********************************/
-/***/ ((module) => {
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("class Board {\n  move(direction) {\n    return \"move:\" + direction;\n  }\n}\n \nmodule.exports = Board;\n\n\n//# sourceURL=webpack://10/./src/js/modules/board.js?");
+eval("const Tile = __webpack_require__(/*! ./tile */ \"./src/js/modules/tile.js\");\n\nclass Board {\n  constructor() {\n    this.tiles = [];\n  }\n\n  toMatrix() {\n    let matrix = [\n      [null, null, null, null],\n      [null, null, null, null],\n      [null, null, null, null],\n      [null, null, null, null]\n    ];\n    this.tiles.forEach(tile => {\n      matrix[tile.y][tile.x] = tile.n;\n    });\n    return matrix;\n  }\n\n  appendRandomTile() {\n    let emptyPoints = [];\n    for (let x = 0; x < 4; x++) {\n      for (let y = 0; y < 4; y++) {\n        if (!this.tiles.some(tile => tile.x == x && tile.y == y)) {\n          emptyPoints.push([x, y]);\n        }\n      }\n    }\n\n    const point = emptyPoints[Math.floor(Math.random() * emptyPoints.length)];\n    const n = Math.floor(Math.random() * 2);\n    const tile = new Tile(point[0], point[1], n);\n\n    this.tiles.push(tile);\n  }\n\n  rotate(m = 1) {\n    const board = new Board();\n    board.tiles = this.tiles.map(tile => tile.rotate(m));\n    return board;\n  }\n\n  moveLeft() {\n    const board = new Board();\n    let y = 0;\n    this.toMatrix().forEach(row => {\n      let x = 0;\n      row.filter(n => n != null).forEach(n => {\n        board.tiles.push(new Tile(x, y, n));\n        x++;\n      });\n      y++;\n    });\n    return board;\n  }\n\n  move(m) { // m = 0:left, 1:down, 2:right, 3:up\n    return this.rotate(-m).moveLeft().rotate(m);\n  }\n\n  next(m) { // m = 0:left, 1:down, 2:right, 3:up\n    const board = this.move(m);\n    board.appendRandomTile();\n    return board;\n  }\n}\n \nmodule.exports = Board;\n\n\n//# sourceURL=webpack://10/./src/js/modules/board.js?");
 
 /***/ }),
 
-/***/ "./src/js/modules/sum.js":
-/*!*******************************!*\
-  !*** ./src/js/modules/sum.js ***!
-  \*******************************/
+/***/ "./src/js/modules/tile.js":
+/*!********************************!*\
+  !*** ./src/js/modules/tile.js ***!
+  \********************************/
 /***/ ((module) => {
 
-eval("function sum(a, b) {\n  return a + b;\n}\nmodule.exports = sum;\n\n//# sourceURL=webpack://10/./src/js/modules/sum.js?");
+eval("class Tile {\n  constructor(x, y, n) {\n    this.x = x;\n    this.y = y;\n    this.n = n;\n  }\n\n  toString() {\n    return this.x + \",\" + this.y + \",\" + this.n;\n  }\n\n  rotate(m = 1) {\n    m = (m + 4) % 4;\n\n    if (m > 1) {\n      return this.rotate().rotate(m - 1);\n    }\n\n    if (m == 1) {\n      const x = this.y;\n      const y = 3 - this.x;\n      const n = this.n;\n      return new Tile(x, y, n);\n    }\n\n    return this; // m == 0\n  }\n}\n \nmodule.exports = Tile;\n\n\n//# sourceURL=webpack://10/./src/js/modules/tile.js?");
 
 /***/ })
 

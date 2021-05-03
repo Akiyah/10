@@ -1,7 +1,36 @@
-import sum from './modules/sum';
 import Board from './modules/board';
+import Tile from './modules/tile';
 
-console.log(sum(1, 2));
+let board = new Board();
 
-const board = new Board();
-console.log(board.move("left"));
+board.appendRandomTile();
+board.appendRandomTile();
+
+function show() {
+  for(let x = 0; x < 4; x++) {
+    for(let y = 0; y < 4; y++) {
+      const id = "td" + x + "" + y;
+      const td = document.getElementById(id);
+      td.innerText = "";
+    }
+  }
+  board.tiles.forEach(tile => {
+    const id = "td" + tile.x + "" + tile.y;
+    const td = document.getElementById(id);
+    td.innerText = tile.n;
+  });
+}
+
+function next(m) {
+  board = board.next(m);
+  show();
+}
+
+window.onload = function() {
+  document.getElementById("button0").onclick = function() { next(0); };
+  document.getElementById("button1").onclick = function() { next(1); };
+  document.getElementById("button2").onclick = function() { next(2); };
+  document.getElementById("button3").onclick = function() { next(3); };
+
+  show();
+}

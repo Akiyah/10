@@ -41,10 +41,6 @@ class Board {
     return board;
   }
 
-  move(m) { // m = 0:left, 1:down, 2:right, 3:up
-    return this.rotate(-m).moveLeft().rotate(m);
-  }
-
   moveLeft() {
     const board = new Board();
     let y = 0;
@@ -56,6 +52,16 @@ class Board {
       });
       y++;
     });
+    return board;
+  }
+
+  move(m) { // m = 0:left, 1:down, 2:right, 3:up
+    return this.rotate(-m).moveLeft().rotate(m);
+  }
+
+  next(m) { // m = 0:left, 1:down, 2:right, 3:up
+    const board = this.move(m);
+    board.appendRandomTile();
     return board;
   }
 }
