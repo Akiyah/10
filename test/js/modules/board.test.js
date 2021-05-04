@@ -76,8 +76,8 @@ test('#random', () => {
   } 
 
   expect(ns.every(n => n == 0 || n == 1)).toBeTruthy();
-  expect(ns.filter(n => n == 0).length > 890).toBeTruthy();
-  expect(ns.filter(n => n == 1).length < 110).toBeTruthy();
+  expect(ns.filter(n => n == 0).length > 880).toBeTruthy();
+  expect(ns.filter(n => n == 1).length < 120).toBeTruthy();
 });
 
 
