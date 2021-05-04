@@ -1,5 +1,4 @@
 import Board from './modules/board';
-import Tile from './modules/tile';
 
 let board = Board.initialize();
 
@@ -18,6 +17,14 @@ function show() {
     td.innerText = tile.n;
     td.classList.add("tile" + tile.n);
   });
+
+  document.getElementById('button0').disabled = !board.isMovable(0);
+  document.getElementById('button1').disabled = !board.isMovable(1);
+  document.getElementById('button2').disabled = !board.isMovable(2);
+  document.getElementById('button3').disabled = !board.isMovable(3);
+
+  document.getElementById('undo').disabled = true;
+  document.getElementById('redo').disabled = true;
 }
 
 function next(m) {

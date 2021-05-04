@@ -12,12 +12,16 @@
       width : 180px;
       height : 180px;
     }
-    .board, .controller button {
+    .board, .controller button, .history button {
       font-size: 100px;
       text-align : center;
     }
     .controller td, .controller button {
       width : 200px;
+      height : 150px;
+    }
+    .history td, .history button {
+      width : 300px;
       height : 150px;
     }
     .board td.tile0 { background-color: #FEE; }
@@ -31,9 +35,18 @@
     .board td.tile8 { background-color: #F66; }
     .board td.tile9 { background-color: #F55; }
     .board td.tile10 { background-color: black; color: white; }
+    .board td.tile11 { background-color: black; color: white; }
+    .board td.tile12 { background-color: black; color: white; }
+    .board td.tile13 { background-color: black; color: white; }
+    .board td.tile14 { background-color: black; color: white; }
+    .board td.tile15 { background-color: black; color: white; }
   </style>
 </head>
 <body>
+  <table class="history">
+    <tr><td><button id="undo">undo</button></td><td><button id="redo">redo</button></td></tr>
+  </table>
+
   <table class="board">
     <tr><td id="td00"></td><td id="td10"></td><td id="td20"></td><td id="td30"></td></tr>
     <tr><td id="td01"></td><td id="td11"></td><td id="td21"></td><td id="td31"></td></tr>
