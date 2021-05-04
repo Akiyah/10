@@ -1,7 +1,5 @@
 import Game from './modules/game';
 
-const game = new Game();
-
 function show() {
   for(let x = 0; x < 4; x++) {
     for(let y = 0; y < 4; y++) {
@@ -28,13 +26,27 @@ function show() {
 }
 
 window.onload = function() {
-  document.getElementById("button0").onclick = function() { game.next(0); show(); };
-  document.getElementById("button1").onclick = function() { game.next(1); show(); };
-  document.getElementById("button2").onclick = function() { game.next(2); show(); };
-  document.getElementById("button3").onclick = function() { game.next(3); show(); };
+  document.getElementById("button0").onclick = function() { game.next(0); };
+  document.getElementById("button1").onclick = function() { game.next(1); };
+  document.getElementById("button2").onclick = function() { game.next(2); };
+  document.getElementById("button3").onclick = function() { game.next(3); };
 
-  document.getElementById('undo').onclick = function() { game.undo(); show(); };
-  document.getElementById('redo').onclick = function() { game.redo(); show(); };
+  document.getElementById('undo').onclick = function() { game.undo(); };
+  document.getElementById('redo').onclick = function() { game.redo(); };
+
+  document.addEventListener("touchstart", function(e) {
+    game.ontouchstart(e);
+    e.preventDefault();
+  }, { passive: false });
+  document.addEventListener("touchmove", function(e) {
+    game.ontouchmove(e);
+    e.preventDefault();
+  }, { passive: false });
+  document.addEventListener("touchend", function(e) {
+    game.ontouchend(e);
+  });
 
   show();
 }
+
+const game = new Game(show);

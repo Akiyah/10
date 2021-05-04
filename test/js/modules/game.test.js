@@ -124,3 +124,68 @@ describe('#next', () => {
     expect(game.board().tiles.length).toBe(2);
   });
 });
+
+test('#direction', () => {
+  const game = new Game();
+
+  expect(game.direction({x: 100, y: 200}, {x: 100 - 10, y: 200     })).toBe(0); // left
+  expect(game.direction({x: 100, y: 200}, {x: 100     , y: 200 + 10})).toBe(1); // down
+  expect(game.direction({x: 100, y: 200}, {x: 100 + 10, y: 200     })).toBe(2); // right
+  expect(game.direction({x: 100, y: 200}, {x: 100     , y: 200 - 10})).toBe(3); // up
+
+  expect(game.direction({x: 100, y: 200}, {x: 100 - 10, y: 200 -  9})).toBe(0); // left(up)
+  expect(game.direction({x: 100, y: 200}, {x: 100 - 10, y: 200 +  9})).toBe(0); // left(down)
+  expect(game.direction({x: 100, y: 200}, {x: 100 -  9, y: 200 + 10})).toBe(1); // down(left)
+  expect(game.direction({x: 100, y: 200}, {x: 100 +  9, y: 200 + 10})).toBe(1); // down(right)
+  expect(game.direction({x: 100, y: 200}, {x: 100 + 10, y: 200 -  9})).toBe(2); // right(up)
+  expect(game.direction({x: 100, y: 200}, {x: 100 + 10, y: 200 +  9})).toBe(2); // right(down)
+  expect(game.direction({x: 100, y: 200}, {x: 100 -  9, y: 200 - 10})).toBe(3); // up(left)
+  expect(game.direction({x: 100, y: 200}, {x: 100 +  9, y: 200 - 10})).toBe(3); // up(right)
+});
+
+test('#distance', () => {
+  const game = new Game();
+
+  expect(game.distance({x: 100, y: 200}, {x: 100 - 3, y: 200    })).toBe(3);
+  expect(game.distance({x: 100, y: 200}, {x: 100    , y: 200 + 4})).toBe(4);
+  expect(game.distance({x: 100, y: 200}, {x: 100 + 3, y: 200 - 4})).toBe(5);
+});
+
+describe('#ontouchstart/#ontouchmove/#ontouchend', () => {
+  test('ontouchstart -> ontouchmove -> ontouchend', () => {
+    const game = new Game();
+
+    expect(game.ontouch).toBe(false);
+    expect(game.startPoint).toEqual(null);
+    expect(game.movePoint).toEqual(null);
+    expect(game.touchDirection).toBe(null);
+
+    game.ontouchstart({touches: [{clientX: 100, clientY: 200}]});
+
+    expect(game.ontouch).toBe(true);
+    expect(game.startPoint).toEqual({x: 100, y: 200});
+    expect(game.movePoint).toEqual(null);
+    expect(game.touchDirection).toBe(null);
+
+    game.ontouchmove({touches: [{clientX: 120, clientY: 205}]});
+
+    expect(game.ontouch).toBe(true);
+    expect(game.startPoint).toEqual({x: 100, y: 200});
+    expect(game.movePoint).toEqual({x: 120, y: 205});
+    expect(game.touchDirection).toBe(2); // right
+
+    game.ontouchmove({touches: [{clientX: 140, clientY: 210}]});
+
+    expect(game.ontouch).toBe(true);
+    expect(game.startPoint).toEqual({x: 100, y: 200});
+    expect(game.movePoint).toEqual({x: 140, y: 210});
+    expect(game.touchDirection).toBe(2); // right
+
+    game.ontouchend();
+
+    expect(game.ontouch).toBe(false);
+    expect(game.startPoint).toEqual(null);
+    expect(game.movePoint).toEqual(null);
+    expect(game.touchDirection).toBe(null);
+  });
+});
