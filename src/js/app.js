@@ -1,6 +1,8 @@
 import Game from './modules/game';
 
-function show() {
+const game = new Game();
+
+function refresh() {
   for(let x = 0; x < 4; x++) {
     for(let y = 0; y < 4; y++) {
       const id = "td" + x + "" + y;
@@ -16,37 +18,27 @@ function show() {
     td.classList.add("tile" + tile.n);
   });
 
-  document.getElementById('button0').disabled = !game.isMovable(0);
-  document.getElementById('button1').disabled = !game.isMovable(1);
-  document.getElementById('button2').disabled = !game.isMovable(2);
-  document.getElementById('button3').disabled = !game.isMovable(3);
-
   document.getElementById('undo').disabled = !game.isUndoable();
   document.getElementById('redo').disabled = !game.isRedoable();
 }
 
 window.onload = function() {
-  document.getElementById("button0").onclick = function() { game.next(0); };
-  document.getElementById("button1").onclick = function() { game.next(1); };
-  document.getElementById("button2").onclick = function() { game.next(2); };
-  document.getElementById("button3").onclick = function() { game.next(3); };
-
   document.getElementById('undo').onclick = function() { game.undo(); };
   document.getElementById('redo').onclick = function() { game.redo(); };
 
-  document.addEventListener("touchstart", function(e) {
+  const gameDiv = document.getElementById("game-div"); 
+  gameDiv.addEventListener("touchstart", function(e) {
     game.ontouchstart(e);
     e.preventDefault();
   }, { passive: false });
-  document.addEventListener("touchmove", function(e) {
+  gameDiv.addEventListener("touchmove", function(e) {
     game.ontouchmove(e);
     e.preventDefault();
   }, { passive: false });
-  document.addEventListener("touchend", function(e) {
+  gameDiv.addEventListener("touchend", function(e) {
     game.ontouchend(e);
   });
 
-  show();
+  game.initialize(refresh);
 }
 
-const game = new Game(show);

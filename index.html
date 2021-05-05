@@ -3,16 +3,23 @@
 <head>
   <meta charset="utf-8">
   <title>10</title>
-  <script src="public/js/bundle.js?202105050100"></script>
+  <script src="public/js/bundle.js?202105051219"></script>
   <style>
+    table {
+      margin-bottom : 100px;
+    }
     table, tr, td {
       border : solid thin gray;
     }
-    .board td {
+    #game-div {
+      background-color: silver;
+      height : 1000px;
+    }
+    #game-table td {
       width : 180px;
       height : 180px;
     }
-    .board, .controller button, .history button {
+    #game-table, .controller button, .history button {
       font-size: 100px;
       text-align : center;
     }
@@ -24,42 +31,36 @@
       width : 300px;
       height : 150px;
     }
-    .board td.tile0 { background-color: #FEE; }
-    .board td.tile1 { background-color: #FDD; }
-    .board td.tile2 { background-color: #FCC; }
-    .board td.tile3 { background-color: #FBB; }
-    .board td.tile4 { background-color: #FAA; }
-    .board td.tile5 { background-color: #F99; }
-    .board td.tile6 { background-color: #F88; }
-    .board td.tile7 { background-color: #F77; }
-    .board td.tile8 { background-color: #F66; }
-    .board td.tile9 { background-color: #F55; }
-    .board td.tile10 { background-color: black; color: white; }
-    .board td.tile11 { background-color: black; color: white; }
-    .board td.tile12 { background-color: black; color: white; }
-    .board td.tile13 { background-color: black; color: white; }
-    .board td.tile14 { background-color: black; color: white; }
-    .board td.tile15 { background-color: black; color: white; }
+    #game-table td.tile0 { background-color: #FEE; }
+    #game-table td.tile1 { background-color: #FDD; }
+    #game-table td.tile2 { background-color: #FCC; }
+    #game-table td.tile3 { background-color: #FBB; }
+    #game-table td.tile4 { background-color: #FAA; }
+    #game-table td.tile5 { background-color: #F99; }
+    #game-table td.tile6 { background-color: #F88; }
+    #game-table td.tile7 { background-color: #F77; }
+    #game-table td.tile8 { background-color: #F66; }
+    #game-table td.tile9 { background-color: #F55; }
+    #game-table td.tile10 { background-color: black; color: white; }
+    #game-table td.tile11 { background-color: black; color: white; }
+    #game-table td.tile12 { background-color: black; color: white; }
+    #game-table td.tile13 { background-color: black; color: white; }
+    #game-table td.tile14 { background-color: black; color: white; }
+    #game-table td.tile15 { background-color: black; color: white; }
   </style>
 </head>
 <body>
+  <div id="game-div">
+    <table id="game-table">
+      <tr><td id="td00"></td><td id="td10"></td><td id="td20"></td><td id="td30"></td></tr>
+      <tr><td id="td01"></td><td id="td11"></td><td id="td21"></td><td id="td31"></td></tr>
+      <tr><td id="td02"></td><td id="td12"></td><td id="td22"></td><td id="td32"></td></tr>
+      <tr><td id="td03"></td><td id="td13"></td><td id="td23"></td><td id="td33"></td></tr>
+    </table>
+  </div>>
+
   <table class="history">
     <tr><td><button id="undo">undo</button></td><td><button id="redo">redo</button></td></tr>
   </table>
-
-  <table class="board">
-    <tr><td id="td00"></td><td id="td10"></td><td id="td20"></td><td id="td30"></td></tr>
-    <tr><td id="td01"></td><td id="td11"></td><td id="td21"></td><td id="td31"></td></tr>
-    <tr><td id="td02"></td><td id="td12"></td><td id="td22"></td><td id="td32"></td></tr>
-    <tr><td id="td03"></td><td id="td13"></td><td id="td23"></td><td id="td33"></td></tr>
-  </table>
-
-  <table class="controller">
-    <tr><td></td><td><button id="button3">上</button></td><td></td></tr>
-    <tr><td><button id="button0">左</button></td><td></td><td><button id="button2">右</button></td></tr>
-    <tr><td></td><td><button id="button1">下</button></td><td></td></tr>
-  </table>
-
-
 </body>
 </html>

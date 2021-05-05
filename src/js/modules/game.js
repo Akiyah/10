@@ -1,7 +1,7 @@
 const Board = require("./board");
 
 class Game {
-  constructor(callback = null) {
+  initialize(callback = null) {
     const board = Board.initialize();
     this.boards = [board];
     this.index = 0;
@@ -11,6 +11,16 @@ class Game {
     this.movePoint = null;
     this.touchDirection = null;
     this.callback = callback;
+
+    this.refresh();
+
+    return this;
+  }
+
+  refresh() {
+    if (this.callback) {
+      this.callback();
+    }
   }
 
   board() {
@@ -28,6 +38,7 @@ class Game {
   undo() {
     if (this.isUndoable()) {
       this.index--;
+      this.refresh();
     }
     return this;
   }
@@ -35,6 +46,7 @@ class Game {
   redo() {
     if (this.isRedoable()) {
       this.index++;
+      this.refresh();
     }
     return this;
   }
@@ -49,9 +61,7 @@ class Game {
       this.boards = this.boards.slice(0, this.index + 1);
       this.boards.push(board);
       this.index++;;
-    }
-    if (this.callback) {
-      this.callback();
+      this.refresh();
     }
   }
 
@@ -97,9 +107,6 @@ class Game {
 
     const dir = this.direction(this.startPoint, this.movePoint);
     const dist = this.distance(this.startPoint, this.movePoint);
-
-    console.log("dir : " + dir);
-    console.log("dist : " + dist);
 
     if (this.touchDirection != null && dir != this.touchDirection) { // change touchDirection
       this.ontouch = false;

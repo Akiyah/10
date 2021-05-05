@@ -3,14 +3,14 @@ const Board = require('../../../src/js/modules/board');
 const Tile = require('../../../src/js/modules/tile');
 
 test('constructor', () => {
-  const game = new Game();
+  const game = new Game().initialize();
 
   expect(game.boards.length).toBe(1);
   expect(game.index).toBe(0);
 });
 
 describe('#board', () => {
-  const game = new Game();
+  const game = new Game().initialize();
   game.boards = ["board0", "board1", "board2"];
 
   test('index = 0', () => {
@@ -31,7 +31,7 @@ describe('#board', () => {
 
 
 describe('#isUndoable/#isRedoable', () => {
-  const game = new Game();
+  const game = new Game().initialize();
   game.boards = ["board0", "board1", "board2"];
 
   test('index = 0', () => {
@@ -54,7 +54,7 @@ describe('#isUndoable/#isRedoable', () => {
 });
 
 describe('#undo/#redo', () => {
-  const game = new Game();
+  const game = new Game().initialize();
   game.boards = ["board0", "board1", "board2"];
 
   beforeEach(() => {
@@ -75,7 +75,7 @@ describe('#undo/#redo', () => {
 });
 
 test('#isMovable', () => {
-  const game = new Game();
+  const game = new Game().initialize();
   const board = new Board();
   board.tiles = [new Tile(1,3,5)];
   game.boards = [board];
@@ -89,7 +89,7 @@ test('#isMovable', () => {
 
 describe('#next', () => {
   test('create new board', () => {
-    const game = new Game();
+    const game = new Game().initialize();
     const board = new Board();
     board.tiles = [new Tile(1,2,5)];
     game.boards = [board];
@@ -107,7 +107,7 @@ describe('#next', () => {
   });
 
   test('remove redo history', () => {
-    const game = new Game();
+    const game = new Game().initialize();
     const board = new Board();
     board.tiles = [new Tile(1,2,5)];
     game.boards = [board, "board", "board"];
@@ -126,7 +126,7 @@ describe('#next', () => {
 });
 
 test('#direction', () => {
-  const game = new Game();
+  const game = new Game().initialize();
 
   expect(game.direction({x: 100, y: 200}, {x: 100 - 10, y: 200     })).toBe(0); // left
   expect(game.direction({x: 100, y: 200}, {x: 100     , y: 200 + 10})).toBe(1); // down
@@ -144,7 +144,7 @@ test('#direction', () => {
 });
 
 test('#distance', () => {
-  const game = new Game();
+  const game = new Game().initialize();
 
   expect(game.distance({x: 100, y: 200}, {x: 100 - 3, y: 200    })).toBe(3);
   expect(game.distance({x: 100, y: 200}, {x: 100    , y: 200 + 4})).toBe(4);
@@ -153,7 +153,7 @@ test('#distance', () => {
 
 describe('#ontouchstart/#ontouchmove/#ontouchend', () => {
   test('ontouchstart -> ontouchmove -> ontouchend', () => {
-    const game = new Game();
+    const game = new Game().initialize();
 
     expect(game.ontouch).toBe(false);
     expect(game.startPoint).toEqual(null);
