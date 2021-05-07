@@ -19,7 +19,7 @@ class Game {
 
   refresh() {
     if (this.callback) {
-      this.callback();
+      this.callback(this);
     }
   }
 

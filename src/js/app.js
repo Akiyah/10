@@ -1,8 +1,6 @@
 import Game from './modules/game';
 
-const game = new Game();
-
-function refresh() {
+function refresh(game) {
   for(let x = 0; x < 4; x++) {
     for(let y = 0; y < 4; y++) {
       const id = "td" + x + "" + y;
@@ -23,6 +21,8 @@ function refresh() {
 }
 
 window.onload = function() {
+  const game = new Game().initialize(refresh);
+
   document.getElementById('undo').onclick = function() { game.undo(); };
   document.getElementById('redo').onclick = function() { game.redo(); };
 
@@ -38,7 +38,5 @@ window.onload = function() {
   gameDiv.addEventListener("touchend", function(e) {
     game.ontouchend(e);
   });
-
-  game.initialize(refresh);
 }
 
