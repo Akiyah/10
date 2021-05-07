@@ -113,6 +113,7 @@ class Game {
       this.startPoint = null;
       this.movePoint = null;
       this.touchDirection = null;
+      return;
     }
 
     this.touchDirection = dir;
