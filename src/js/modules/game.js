@@ -1,7 +1,7 @@
 const Board = require("./board");
 
 class Game {
-  initialize(callback = null) {
+  constructor(callback = null) {
     const board = Board.initialize();
     this.boards = [board];
     this.index = 0;

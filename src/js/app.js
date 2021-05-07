@@ -21,7 +21,7 @@ function refresh(game) {
 }
 
 window.onload = function() {
-  const game = new Game().initialize(refresh);
+  const game = new Game(refresh);
 
   document.getElementById('undo').onclick = function() { game.undo(); };
   document.getElementById('redo').onclick = function() { game.redo(); };
