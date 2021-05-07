@@ -2,11 +2,23 @@ const Game = require('../../../src/js/modules/game');
 const Board = require('../../../src/js/modules/board');
 const Tile = require('../../../src/js/modules/tile');
 
-test('constructor', () => {
-  const game = new Game();
+describe('constructor', () => {
+  test('no callback', () => {
+    const game = new Game();
 
-  expect(game.boards.length).toBe(1);
-  expect(game.index).toBe(0);
+    expect(game.boards.length).toBe(1);
+    expect(game.index).toBe(0);
+    expect(game.callback).toBe(null);
+  }); 
+
+  test('with callback', () => {
+    const callback = jest.fn();
+    const game = new Game(callback);
+
+    expect(game.boards.length).toBe(1);
+    expect(game.index).toBe(0);
+    expect(callback.mock.calls.length).toBe(1);
+  }); 
 });
 
 describe('#board', () => {
