@@ -39,7 +39,7 @@ class Board {
     }
 
     const point = emptyPoints[Math.floor(Math.random() * emptyPoints.length)];
-    const tile = new Tile(point[0], point[1], this.random());
+    const tile = new Tile(point[0], point[1], this.random(), 'new');
 
     board.tiles = this.tiles.concat(tile);
 

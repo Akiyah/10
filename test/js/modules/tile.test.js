@@ -1,15 +1,28 @@
 const Tile = require('../../../src/js/modules/tile');
 
-test('constructor', () => {
-  const tile = new Tile(1, 2, 5);
+describe('constructor', () => {
+  test('no status', () => {
+    const tile = new Tile(1, 2, 5);
 
-  expect(tile.x).toBe(1);
-  expect(tile.y).toBe(2);
-  expect(tile.n).toBe(5);
+    expect(tile.x).toBe(1);
+    expect(tile.y).toBe(2);
+    expect(tile.n).toBe(5);
+    expect(tile.status).toBe(null);
+  });
+
+  test('with status', () => {
+    const tile = new Tile(1, 2, 5, 'new');
+
+    expect(tile.x).toBe(1);
+    expect(tile.y).toBe(2);
+    expect(tile.n).toBe(5);
+    expect(tile.status).toBe('new');
+  });
 });
 
 test('#toString', () => {
   expect(new Tile(1, 2, 5).toString()).toBe("1,2,5");
+  expect(new Tile(1, 2, 5, 'new').toString()).toBe("1,2,5,new");
 });
 
 describe('#rotate', () => {
@@ -44,5 +57,10 @@ describe('#rotate', () => {
     expect(new Tile(0, 0,  0).rotate(-1).toString()).toBe("3,0,0");
     expect(new Tile(0, 0,  0).rotate(-2).toString()).toBe("3,3,0");
     expect(new Tile(0, 0,  0).rotate(-3).toString()).toBe("0,3,0");
+  });
+
+  test('with status', () => {
+    expect(new Tile(0, 0, 0, 'new').rotate().toString()).toBe("0,3,0,new");
+    expect(new Tile(0, 0, 0, 'new').rotate(2).toString()).toBe("3,3,0,new");
   });
 });

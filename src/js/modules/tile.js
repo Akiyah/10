@@ -1,11 +1,15 @@
 class Tile {
-  constructor(x, y, n) {
+  constructor(x, y, n, status = null) {
     this.x = x;
     this.y = y;
     this.n = n;
+    this.status = status;
   }
 
   toString() {
+    if (this.status) {
+      return this.x + "," + this.y + "," + this.n + "," + this.status;
+    }
     return this.x + "," + this.y + "," + this.n;
   }
 
@@ -19,8 +23,7 @@ class Tile {
     if (m == 1) {
       const x = this.y;
       const y = 3 - this.x;
-      const n = this.n;
-      return new Tile(x, y, n);
+      return new Tile(x, y, this.n, this.status);
     }
 
     return this; // m == 0
