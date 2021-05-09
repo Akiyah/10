@@ -14,6 +14,9 @@ function refresh(game) {
     const td = document.getElementById(id);
     td.innerText = tile.n;
     td.classList.add("tile" + tile.n);
+    if (tile.status) {
+      td.classList.add(tile.status);
+    }
   });
 
   document.getElementById('undo').disabled = !game.isUndoable();
@@ -38,5 +41,15 @@ window.onload = function() {
   gameDiv.addEventListener("touchend", function(e) {
     game.ontouchend(e);
   });
+
+  for(let x = 0; x < 4; x++) {
+    for(let y = 0; y < 4; y++) {
+      const id = "td" + x + "" + y;
+      const td = document.getElementById(id);
+      td.on('animationend', function(){
+        td.removeClass('new');
+      });
+    }
+  }
 }
 
