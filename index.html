@@ -2,22 +2,23 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,target-densitydpi=160dpi,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
   <title>10</title>
   <script src="public/js/bundle.js?202105070058"></script>
   <style>
-    table {
-      margin-bottom : 100px;
+    body {
+      margin: 0px;
     }
-    table, tr, td {
-      border : solid thin gray;
+    #game-div table, #game-div tr, #game-div td {
+      border: solid thin gray;
     }
     #game-div {
       background-color: silver;
-      height : 1000px;
+      padding: 40px 8px 80px 8px;
     }
     #game-table td {
-      width : 180px;
-      height : 180px;
+      width: 80px;
+      height: 80px;
     }
     #game-table td.new {
       animation: append 0.5s;
@@ -33,17 +34,12 @@
       }
     }
 
-    #game-table, .controller button, .history button {
-      font-size: 100px;
-      text-align : center;
-    }
-    .controller td, .controller button {
-      width : 200px;
-      height : 150px;
+    #game-table, .history button {
+      font-size: 40px;
+      text-align: center;
     }
     .history td, .history button {
-      width : 300px;
-      height : 150px;
+      width: 160px;
     }
     #game-table td.tile0 { background-color: #FEE; }
     #game-table td.tile1 { background-color: #FDD; }
@@ -71,7 +67,7 @@
       <tr><td id="td02"></td><td id="td12"></td><td id="td22"></td><td id="td32"></td></tr>
       <tr><td id="td03"></td><td id="td13"></td><td id="td23"></td><td id="td33"></td></tr>
     </table>
-  </div>>
+  </div>
 
   <table class="history">
     <tr><td><button id="undo">undo</button></td><td><button id="redo">redo</button></td></tr>

@@ -118,7 +118,7 @@ class Game {
 
     this.touchDirection = dir;
 
-    if (100 < dist) { // move some distance
+    if (70 < dist) { // move some distance
       this.next(dir);
       this.ontouch = false;
       this.startPoint = null;

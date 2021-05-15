@@ -221,7 +221,7 @@ describe('#ontouchstart/#ontouchmove/#ontouchend', () => {
     expect(game.callback.mock.calls.length).toBe(0);
   });
 
-  test('ontouchstart -> ontouchmove -> over 100 distance', () => {
+  test('ontouchstart -> ontouchmove -> over 70 distance', () => {
     game.ontouchmove({touches: [{clientX: 200, clientY: 225}]});
 
     expect(game.ontouch).toBe(false);
