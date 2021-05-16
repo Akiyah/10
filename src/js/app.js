@@ -46,8 +46,8 @@ window.onload = function() {
     for(let y = 0; y < 4; y++) {
       const id = "td" + x + "" + y;
       const td = document.getElementById(id);
-      td.on('animationend', function(){
-        td.removeClass('new');
+      td.addEventListener('animationend', function(){
+        td.classList.remove('new');
       });
     }
   }
