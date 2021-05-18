@@ -20,7 +20,8 @@
       width: 80px;
       height: 80px;
     }
-    #game-table td.new {
+
+    #tiles div.new {
       animation: append 0.5s;
     }
 
@@ -34,41 +35,12 @@
       }
     }
 
-    #game-table, .history button {
-      font-size: 40px;
-      text-align: center;
-    }
-    .history td, .history button {
-      width: 160px;
-    }
-    #game-table td.tile0 { background-color: #FEE; }
-    #game-table td.tile1 { background-color: #FDD; }
-    #game-table td.tile2 { background-color: #FCC; }
-    #game-table td.tile3 { background-color: #FBB; }
-    #game-table td.tile4 { background-color: #FAA; }
-    #game-table td.tile5 { background-color: #F99; }
-    #game-table td.tile6 { background-color: #F88; }
-    #game-table td.tile7 { background-color: #F77; }
-    #game-table td.tile8 { background-color: #F66; }
-    #game-table td.tile9 { background-color: #F55; }
-    #game-table td.tile10 { background-color: black; color: white; }
-    #game-table td.tile11 { background-color: black; color: white; }
-    #game-table td.tile12 { background-color: black; color: white; }
-    #game-table td.tile13 { background-color: black; color: white; }
-    #game-table td.tile14 { background-color: black; color: white; }
-    #game-table td.tile15 { background-color: black; color: white; }
-
-    #tiles div.new {
-      animation: append 0.5s;
-    }
-
     #tiles div {
       width: 80px;
       height: 80px;      
       border: solid 1px gray;
       padding: 1px;
       position: absolute;
-      font-size: 40px;
       display: grid;
       place-items: center;
     }
@@ -89,6 +61,14 @@
     #tiles div.tile13 { background-color: black; color: white; }
     #tiles div.tile14 { background-color: black; color: white; }
     #tiles div.tile15 { background-color: black; color: white; }
+
+    #tiles div, .history button {
+      font-size: 40px;
+      text-align: center;
+    }
+    .history td, .history button {
+      width: 160px;
+    }
   </style>
 </head>
 <body>
