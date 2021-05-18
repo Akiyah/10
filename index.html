@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,minimal-ui">
   <title>10</title>
-  <script src="public/js/bundle.js?202105070058"></script>
+  <script src="public/js/bundle.js?202105190032"></script>
   <style>
     body {
       margin: 0px;
@@ -57,6 +57,38 @@
     #game-table td.tile13 { background-color: black; color: white; }
     #game-table td.tile14 { background-color: black; color: white; }
     #game-table td.tile15 { background-color: black; color: white; }
+
+    #tiles div.new {
+      animation: append 0.5s;
+    }
+
+    #tiles div {
+      width: 80px;
+      height: 80px;      
+      border: solid 1px gray;
+      padding: 1px;
+      position: absolute;
+      font-size: 40px;
+      display: grid;
+      place-items: center;
+    }
+
+    #tiles div.tile0 { background-color: #FEE; }
+    #tiles div.tile1 { background-color: #FDD; }
+    #tiles div.tile2 { background-color: #FCC; }
+    #tiles div.tile3 { background-color: #FBB; }
+    #tiles div.tile4 { background-color: #FAA; }
+    #tiles div.tile5 { background-color: #F99; }
+    #tiles div.tile6 { background-color: #F88; }
+    #tiles div.tile7 { background-color: #F77; }
+    #tiles div.tile8 { background-color: #F66; }
+    #tiles div.tile9 { background-color: #F55; }
+    #tiles div.tile10 { background-color: black; color: white; }
+    #tiles div.tile11 { background-color: black; color: white; }
+    #tiles div.tile12 { background-color: black; color: white; }
+    #tiles div.tile13 { background-color: black; color: white; }
+    #tiles div.tile14 { background-color: black; color: white; }
+    #tiles div.tile15 { background-color: black; color: white; }
   </style>
 </head>
 <body>
@@ -67,6 +99,10 @@
       <tr><td id="td02"></td><td id="td12"></td><td id="td22"></td><td id="td32"></td></tr>
       <tr><td id="td03"></td><td id="td13"></td><td id="td23"></td><td id="td33"></td></tr>
     </table>
+    <div id="tiles">
+      <div class="tile1">1</div>
+      <div class="tile2">2</div>
+    </div>
   </div>
 
   <table class="history">

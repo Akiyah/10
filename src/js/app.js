@@ -1,22 +1,21 @@
 import Game from './modules/game';
 
 function refresh(game) {
-  for(let x = 0; x < 4; x++) {
-    for(let y = 0; y < 4; y++) {
-      const id = "td" + x + "" + y;
-      const td = document.getElementById(id);
-      td.innerText = "";
-      td.classList = [];
-    }
+  const tilesDiv = document.getElementById('tiles');
+  while (tilesDiv.firstChild) {
+    tilesDiv.removeChild(tilesDiv.firstChild);
   }
+
   game.board().tiles.forEach(tile => {
-    const id = "td" + tile.x + "" + tile.y;
-    const td = document.getElementById(id);
-    td.innerText = tile.n;
-    td.classList.add("tile" + tile.n);
+    const tileDiv = document.createElement('div');
+    tileDiv.innerText = tile.n;
+    tileDiv.classList.add("tile" + tile.n);
+    tileDiv.style.top = (40 + 3 + tile.y * (80 + 6)) + 'px';
+    tileDiv.style.left = (8 + 3 + tile.x * (80 + 6)) + 'px';
     if (tile.status) {
-      td.classList.add(tile.status);
+      tileDiv.classList.add(tile.status);
     }
+    tilesDiv.appendChild(tileDiv);
   });
 
   document.getElementById('undo').disabled = !game.isUndoable();
